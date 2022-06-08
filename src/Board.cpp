@@ -22,7 +22,7 @@ void Minesweeper::Board::initBoard() {
         }
     }
     font.loadFromFile(std::experimental::filesystem::current_path().string() +
-                      std::string(R"(\src\resources\Lato-Light.ttf)"));
+                      std::string(R"(\resources\Lato-Light.ttf)"));
     rsMenu = sf::RectangleShape(sf::Vector2f(200.f, 50.f));
     rsRestart = sf::RectangleShape(sf::Vector2f(200.f, 50.f));
     rsBorder = sf::RectangleShape(sf::Vector2f(width*32.f, height*32.f));
@@ -249,7 +249,7 @@ void Minesweeper::Board::loadTextures() {
     for (const auto &key: states) {
         textureMap[key] = sf::Texture();
         textureMap[key].loadFromFile(std::experimental::filesystem::current_path().string() +
-                                     std::string(R"(\src\resources\)") + key +
+                                     std::string(R"(\resources\)") + key +
                                      std::string(".png"));
     }
 }

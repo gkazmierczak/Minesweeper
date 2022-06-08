@@ -2,7 +2,7 @@
 
 void Minesweeper::Game::init() {
     font.loadFromFile(std::experimental::filesystem::current_path().string() +
-                      std::string(R"(\src\resources\Lato-Light.ttf)"));
+                      std::string(R"(\resources\Lato-Light.ttf)"));
     titleText.setString("Minesweeper");
     titleText.setFont(font);
     titleText.setFillColor(sf::Color(255, 255, 0));
