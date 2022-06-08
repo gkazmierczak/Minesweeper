@@ -1,17 +1,19 @@
+#include <SFML/Graphics.hpp>
+
 class Tile {
 public:
     Tile() {
-//        sprite=sf::Sprite();
         revealed = false;
         marked = false;
         containsMine = false;
         nearbyMines = 0;
         detonated = false;
-        lost=false;
+        lost = false;
+        won = false;
     }
 
-    int x;
-    int y;
+    int x{};
+    int y{};
 
     bool isMarked() const {
         return marked;
@@ -25,8 +27,8 @@ public:
         detonated = true;
     }
 
-    void setSize(int s) {
-        size = s;
+    void setOffsetX(int offset) {
+        offsetX = offset;
     }
 
     bool containsMine;
@@ -43,40 +45,35 @@ public:
     void toggleMark() {
         marked = !marked;
     }
-    void lose(){
-        lost=true;
-    }
-    void draw(std::map<std::string, sf::Texture> *textureMap, sf::RenderWindow *window) {
-        if (detonated) {
-            sprite.setTexture(textureMap->at(std::string("mineblown")), true);
-        }
-        else if(lost && containsMine){
-            sprite.setTexture(textureMap->at(std::string("mine")), true);
-        }
-        else {
-            if (isRevealed()) {
-                sprite.setTexture(textureMap->at(std::to_string(nearbyMines)), true);
-            } else {
-                if (marked) {
-                    sprite.setTexture(textureMap->at(std::string("flag")), true);
-                } else {
-                    sprite.setTexture(textureMap->at(std::string("base")), true);
-                }
-            }
-        }
 
-        sprite.setPosition(x * size, y * size);
-        window->draw(sprite);
+    void lose() {
+        lost = true;
     }
+    void win() {
+        won = true;
+    }
+    void draw(std::map<std::string, sf::Texture> *textureMap, sf::RenderWindow *window);
+
     int nearbyMines;
     sf::Sprite sprite;
 
-private:
+    void reset() {
+        detonated = false;
+        revealed = false;
+        marked = false;
+        lost = false;
+        containsMine = false;
+        nearbyMines = 0;
+        won = false;
+    }
 
+private:
+    int offsetX;
     int size = 32;
     bool detonated;
     bool revealed;
     bool marked;
     bool lost;
+    bool won;
 
 };
